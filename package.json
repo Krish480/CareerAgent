@@ -1,0 +1,20 @@
+{
+  "name": "careeragent",
+  "version": "1.0.0",
+  "description": "AI Agent for Interview Prep",
+  "homepage": "https://github.com/Krish480/CareerAgent#readme",
+  "bugs": {
+    "url": "https://github.com/Krish480/CareerAgent/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Krish480/CareerAgent.git"
+  },
+  "license": "ISC",
+  "author": "Krishna Pandey",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
