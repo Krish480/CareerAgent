@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken")
 const authUser = async (req, res, next) => {
     const token = req.cookies.token;
     if (!token) {
-        req.res.status(400).json({
+        return  res.status(400).json({
             message: "Token not provided"
         })
     }
@@ -18,7 +18,7 @@ const authUser = async (req, res, next) => {
 
     }
     catch (err) {
-        return res.status.json({
+        return res.status(400).json({
             message: "Invalid Token"
         })
     }

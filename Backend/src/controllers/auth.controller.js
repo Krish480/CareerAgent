@@ -67,6 +67,8 @@ const loginUserController = async (req, res) => {
 
     const { email, username, password } = req.body;
 
+
+
     const user = await userModel.findOne({
         $or: [{ email }, { username }]
     })
@@ -111,8 +113,8 @@ const loginUserController = async (req, res) => {
 const logOutUserController = async (req, res) => {
     const token = req.cookies.token;
 
-    if(token){
-        await blackListTokenModel.create({token})
+    if (token) {
+        await blackListTokenModel.create({ token })
     }
 
     res.clearCookie("token")
