@@ -114,12 +114,14 @@
 
 .credit-pill,
 .icon-button,
-.profile-button {
+.profile-button,
+.mobile-menu-toggle {
     border: 1px solid #252b3b;
     background: #141824;
 }
 
-.icon-button svg {
+.icon-button svg,
+.mobile-menu-toggle svg {
     width: 15px;
     height: 15px;
 }
@@ -145,7 +147,8 @@
 }
 
 .icon-button,
-.profile-button {
+.profile-button,
+.mobile-menu-toggle {
     display: grid;
     width: 31px;
     height: 31px;
@@ -153,6 +156,16 @@
     border-radius: 9px;
     color: #d1d7e4;
     cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+        background: #1d2335;
+        border-color: #38425d;
+    }
+}
+
+.mobile-menu-toggle {
+    display: none; // Hidden on desktop by default
 }
 
 .profile-button {
@@ -161,6 +174,10 @@
     background: #281638;
     font-size: 10px;
     font-weight: 750;
+
+    &:hover {
+        background: #391c52;
+    }
 }
 
 .workspace {
@@ -690,105 +707,94 @@
     clip-path: inset(50%);
 }
 
-@media (max-width: 760px) {
+@media (max-width: 768px) {
     .topbar {
-        min-height: 58px;
-        padding-inline: 3%;
+        min-height: 54px;
+        padding: 0 16px;
+        position: relative;
+    }
+
+    .brand {
+        gap: 8px;
+    }
+
+    .brand-mark {
+        width: 30px;
+        height: 30px;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .brand-name {
+        font-size: 14px;
+    }
+
+    .brand-edition {
+        font-size: 8.5px;
+        padding: 2px 6px;
+    }
+
+    .mobile-menu-toggle {
+        display: grid;
+        order: 4;
+        margin-left: 4px;
     }
 
     .main-nav {
-        position: static;
-        margin-left: auto;
-        transform: none;
-    }
+        display: none; // Collapsed by default on mobile screens
 
-    .nav-link {
-        padding-inline: 10px;
-    }
+        &.mobile-nav-open {
+            position: absolute;
+            top: 54px;
+            left: 0;
+            right: 0;
+            transform: none;
+            width: 100%;
+            flex-direction: column;
+            padding: 14px 16px;
+            background: #0f121d;
+            border-radius: 0 0 14px 14px;
+            border: 1px solid #232a3d;
+            border-top: none;
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.7);
+            display: flex;
+            gap: 8px;
+            z-index: 100;
 
-    .account-tools {
-        margin-left: 15px;
-    }
-
-    .workspace {
-        width: 94%;
-        padding-top: 28px;
-    }
-
-    .workspace-heading {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 14px;
-    }
-
-    .analysis-mode {
-        align-self: flex-end;
-    }
-
-    .interview-input-group {
-        gap: 14px;
-    }
-
-    .card-heading {
-        padding-inline: 13px;
-    }
-
-    .heading-actions {
-        gap: 4px;
-    }
-
-    .subtle-button {
-        padding-inline: 7px;
-    }
-
-    .resume-card {
-        padding-inline: 13px;
-    }
-
-    .drop-zone {
-        flex-wrap: wrap;
-    }
-
-    .upload-button {
-        margin-left: 44px;
-    }
-}
-
-@media (max-width: 650px) {
-    .topbar {
-        flex-wrap: wrap;
-        gap: 12px;
-        padding-block: 12px;
-    }
-
-    .main-nav {
-        order: 3;
-        width: 100%;
-        justify-content: space-between;
-        margin: 0;
-    }
-
-    .nav-link {
-        padding: 8px 7px;
-        font-size: 10px;
+            .nav-link {
+                width: 100%;
+                padding: 11px 16px;
+                font-size: 12px;
+                text-align: left;
+                border-radius: 8px;
+            }
+        }
     }
 
     .account-tools {
         margin-left: auto;
+        gap: 8px;
     }
 
+    // Workspace & Inputs Layout
     .workspace {
-        width: calc(100% - 28px);
+        width: calc(100% - 32px);
         min-height: auto;
-        padding: 25px 0 20px;
+        padding: 20px 0 28px;
     }
 
     .workspace-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
         margin-bottom: 18px;
-    }
 
-    .workspace-heading h1 {
-        font-size: 25px;
+        h1 {
+            font-size: 24px;
+        }
     }
 
     .desktop-break {
@@ -796,102 +802,200 @@
     }
 
     .analysis-mode {
-        align-self: flex-start;
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 6px;
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 8px;
     }
 
+    // Side-by-side flex/grid layout stacks vertically in a single column
     .interview-input-group {
         grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
     }
 
     .job-card {
-        min-height: 360px;
-    }
-
-    .job-editor textarea {
-        min-height: 245px;
-    }
-
-    .candidate-inputs {
-        gap: 12px;
-    }
-
-    .resume-heading {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .drop-zone {
-        flex-wrap: nowrap;
-    }
-
-    .upload-button {
-        margin-left: 0;
-        padding-inline: 12px;
-    }
-
-    .self-description-card {
-        min-height: 230px;
-    }
-
-    .report-highlights {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 8px;
-        margin-top: 22px;
-        padding-top: 15px;
-    }
-}
-
-@media (max-width: 390px) {
-    .brand {
-        gap: 6px;
-    }
-
-    .brand-name {
-        font-size: 13px;
-    }
-
-    .brand-edition {
-        font-size: 8px;
-    }
-
-    .account-tools {
-        gap: 6px;
-    }
-
-    .credit-pill {
-        padding-inline: 7px;
-        font-size: 9px;
-    }
-
-    .nav-link {
-        padding-inline: 5px;
-        font-size: 9px;
+        min-height: auto;
     }
 
     .card-heading {
+        padding: 12px 14px;
         flex-wrap: wrap;
+        gap: 10px;
     }
 
     .heading-actions {
-        margin-left: 39px;
+        margin-left: auto;
+        gap: 6px;
+    }
+
+    .subtle-button {
+        min-height: 32px;
+        padding: 6px 10px;
+        font-size: 10px;
+    }
+
+    .job-editor,
+    .self-editor {
+        padding: 12px;
+    }
+
+    .job-editor textarea {
+        min-height: 200px;
+        font-size: 12.5px;
+        padding: 14px;
+    }
+
+    .field-meta {
+        padding: 0 14px 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .candidate-inputs {
+        gap: 14px;
+    }
+
+    .resume-card {
+        padding: 12px 14px;
+    }
+
+    .resume-heading {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
     }
 
     .drop-zone {
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 16px 14px;
+        text-align: center;
+    }
+
+    .upload-icon {
+        margin: 0 auto;
+    }
+
+    .drop-copy {
+        align-items: center;
+        text-align: center;
     }
 
     .upload-button {
-        margin-left: 44px;
+        width: 100%;
+        margin-left: 0;
+        min-height: 38px;
+        font-size: 11px;
+    }
+
+    .self-description-card {
+        min-height: auto;
+        padding-top: 14px;
+    }
+
+    .self-heading {
+        padding: 0 14px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .self-editor textarea {
+        min-height: 120px;
+        font-size: 12.5px;
+        padding: 14px;
+    }
+
+    .self-meta {
+        padding: 0 14px 12px;
+    }
+
+    // Generate button becomes full width and touch-friendly
+    .generate-button {
+        width: 100%;
+        min-height: 48px;
+        font-size: 13px;
+        padding: 0 20px;
     }
 
     .privacy-note {
-        align-items: flex-start;
         flex-direction: column;
+        align-items: center;
         gap: 6px;
-        padding-left: 8px;
+        margin-top: 4px;
+        text-align: center;
+    }
+
+    // Bottom 3 highlight cards stack vertically in a single column
+    .report-highlights {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+        padding-top: 16px;
+    }
+
+    .highlight-card {
+        padding: 12px 14px;
+
+        h3,
+        p {
+            white-space: normal;
+        }
+    }
+}
+
+// Extra compact mobile screens (under 480px)
+@media (max-width: 480px) {
+    .topbar {
+        padding: 0 12px;
+    }
+
+    .workspace {
+        width: calc(100% - 24px);
+        padding: 16px 0 24px;
+    }
+
+    .credit-pill {
+        display: none; // Free up space for title and avatar
+    }
+
+    .brand-edition {
+        display: none;
+    }
+
+    .brand-name {
+        font-size: 13.5px;
+    }
+
+    .card-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .heading-actions {
+        width: 100%;
+        margin-left: 0;
+        justify-content: flex-start;
+    }
+
+    .mode-switch {
+        width: 100%;
+
+        button {
+            flex: 1;
+            text-align: center;
+            padding: 7px 4px;
+            font-size: 8.5px;
+        }
+    }
+
+    .field-meta {
+        font-size: 8.5px;
+
+        .clear-button {
+            margin-left: 0;
+        }
     }
 }

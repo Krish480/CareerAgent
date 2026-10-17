@@ -7,7 +7,7 @@ import { useParams } from "react-router";
 export const useInterview = () => {
     const context = useContext(InterviewContext)
 
-    const {interviewId} = useParams()
+    const { interviewId } = useParams()
 
     const { report, reports, loading, setReport, setReports, setLoading } = context;
 
@@ -25,8 +25,7 @@ export const useInterview = () => {
             setLoading(false)
         }
 
-        return response.interviewReport
-
+        return response?.interviewReport
     }
 
     const getReportById = async (interviewId) => {
@@ -35,7 +34,7 @@ export const useInterview = () => {
         try {
 
             response = await generateReportById(interviewId)
-            setReport(response.interviewReport)
+            setReport(response?.interviewReport || null)
 
         } catch (err) {
             console.log(err)
@@ -43,7 +42,7 @@ export const useInterview = () => {
             setLoading(false)
         }
 
-        return response?.interviewReport                   
+        return response?.interviewReport
     }
 
     const getReports = async () => {
@@ -51,18 +50,18 @@ export const useInterview = () => {
         let response = null
         try {
             response = await getAllInterviewReports()
-            setReports(response.interviewReport)
+            setReports(response?.interviewReports || [])
         } catch (err) {
             console.log(err)
         } finally {
             setLoading(false)
         }
 
-        return response.interviewReport
+        return response?.interviewReports || []
     }
 
     useEffect(() => {
-        if(interviewId){
+        if (interviewId) {
             getReportById(interviewId)
         } else {
             getReports()

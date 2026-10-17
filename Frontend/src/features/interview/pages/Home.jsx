@@ -1,8 +1,8 @@
-import { Check, ChevronDown, ChevronRight, ClipboardPaste, Clock3, FileText, Settings, ShieldCheck, Sparkles, Upload, } from 'lucide-react'
+import { Check, ChevronDown, ChevronRight, ClipboardPaste, Clock3, FileText, Menu, Settings, ShieldCheck, Sparkles, Upload, X } from 'lucide-react'
 import '../style/home.scss'
 import { useRef, useState } from 'react'
 import { useInterview } from '../hooks/useInterview'
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 
 const Home = () => {
 
@@ -12,6 +12,7 @@ const Home = () => {
 
     const [jodDescription, setjodDescription] = useState('')
     const [selfDescription, setselfDescription] = useState(' ')
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const resumeInputRef = useRef()
 
     const handleGenerateReport = async (e) => {
@@ -27,30 +28,38 @@ const Home = () => {
         return (
             <main style={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
                 <h1>Loading Your Interview Report... 🚀</h1>
-            </main>
+              </main>
         );
     }
 
     return (
         <div className="career-agent">
             <header className="topbar">
-                <a className="brand" href="/" aria-label="CareerAgent home">
+                <Link className="brand" to="/" aria-label="CareerAgent home">
                     <span className="brand-mark"><Sparkles aria-hidden="true" /></span>
                     <span className="brand-name">CareerAgent</span>
                     <span className="brand-edition">AI STUDIO</span>
-                </a>
+                </Link>
 
-                <nav className="main-nav" aria-label="Main navigation">
-                    <a className="nav-link active" href="#workspace">Workspace</a>
-                    <a className="nav-link" href="#past-reports">Past Reports</a>
-                    <a className="nav-link" href="#questions-bank">Questions Bank</a>
-                    <a className="nav-link" href="#pricing">Pricing</a>
+                <nav className={`main-nav ${mobileMenuOpen ? 'mobile-nav-open' : ''}`} aria-label="Main navigation">
+                    <Link className="nav-link active" to="/" onClick={() => setMobileMenuOpen(false)}>Workspace</Link>
+                    <Link className="nav-link" to="/past-reports" onClick={() => setMobileMenuOpen(false)}>Past Reports</Link>
+                    <a className="nav-link" href="#questions-bank" onClick={() => setMobileMenuOpen(false)}>Questions Bank</a>
+                    <a className="nav-link" href="#pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
                 </nav>
 
                 <div className="account-tools">
                     <span className="credit-pill"><span className="status-dot" />8 / 10 Credits</span>
                     <button className="icon-button" type="button" aria-label="Settings"><Settings aria-hidden="true" /></button>
                     <button className="profile-button" type="button" aria-label="Account menu">KP</button>
+                    <button
+                        className="mobile-menu-toggle"
+                        type="button"
+                        aria-label="Toggle navigation menu"
+                        onClick={() => setMobileMenuOpen(prev => !prev)}
+                    >
+                        {mobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
+                    </button>
                 </div>
             </header>
 
